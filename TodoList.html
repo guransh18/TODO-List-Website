@@ -1,0 +1,178 @@
+<html>
+
+<head>
+    <title>ToDo List</title>
+    <style>
+        #myHeader {
+            font-size: 75px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            text-align: center;
+            background-color: rgb(0, 225, 255);
+            margin: auto;
+        }
+        
+        #aboutpage {
+            font-size: 20px;
+            text-align: center;
+            background-color: rgb(0, 225, 255);
+        }
+        /* remove indentation of list items */
+        
+        ul {
+            padding-left: 0;
+        }
+        /* remove traditional bullet from front of list items */
+        
+        li {
+            list-style-type: none;
+            background-color: rgba(9, 247, 49, 0.534);
+            border: 1px solid #c3c3c3;
+            padding: 10px 0px 10px 5px;
+            font-size: 20px;
+        }
+        
+        .done {
+            background-color: green;
+        }
+        
+        .remove {
+            background-color: red;
+        }
+        
+        li.finished {
+            color: white;
+            background-color: gray;
+            text-decoration: line-through;
+        }
+        
+        input[type="text"] {
+            font-size: 18px;
+            width: 94%;
+            padding: 10px;
+        }
+        
+        input[type="button"] {
+            font-size: 1.2em;
+            margin: -6px 4px 0px 0px;
+        }
+        
+        #addButton {
+            padding: 10px;
+        }
+        
+        .aboutcolor {
+            background-color: yellow;
+        }
+        
+        #divabout {
+            width: 350px;
+            font-size: 20px;
+            margin: 10px;
+        }
+        
+        #important {
+            background-color: rgb(9, 199, 247);
+        }
+        
+        li.important {
+            background-color: rgb(9, 199, 247);
+        }
+    </style>
+
+    <script>
+        function addTask() {
+            var input = document.getElementById("input");
+            // get current text from input field
+            var newTask = input.value;
+            // only add new item to list if some text was entered 
+            if (newTask != "") {
+                // create new HTML list item
+                var item = document.createElement("li");
+                // add HTML for buttons and new task text
+                // Note, need to use '' because of "" in HTML
+                item.innerHTML = '<input type="button" class="done" onclick="markDone(this.parentNode)"  value="&#x2713;" /> ' + '<input type="button" class="remove" onclick="remove(this.parentNode)" value="&#x2715;" /> ' + newTask;
+
+                // add new item as part of existing list
+                document.getElementById("tasks").appendChild(item);
+
+
+                input.value = "";
+
+                input.placeholder = "enter new item...";
+
+            }
+        }
+
+        // change styling used for given item
+        function markDone(item) {
+            item.className = 'finished';
+        }
+
+
+        function remove(item) {
+            // remove item completely from document
+
+            if (item.className == 'finished') {
+                item.remove();
+            }
+
+        }
+
+
+
+
+        function doAbout() {
+            var d1 = document.getElementById("divabout");
+            d1.innerHTML = "The Creator of this page is Guransh Singh.";
+            d1.className = "aboutcolor";
+        }
+
+
+        function clearAbout() {
+            var d1 = document.getElementById("divabout");
+            d1.innerHTML = "";
+            d1.className = "aboutcolor";
+        }
+
+        function important(item) {
+            item.classname = 'important';
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1 id="myHeader"><b>To-Do List</b></h1>
+
+    <p id="aboutpage">
+        <i>Create your own To-Do list and add, delete or checkmark list items at your will!</i>
+    </p>
+
+    <p id="instruction">
+        After typing the item, click on the add button to add the item in the list.
+    </p>
+
+
+    <input type="button" id="addButton" value="Add" onclick="addTask()">
+    <input type="text" id="input" placeholder="enter task...">
+    <hr>
+    <ul id="tasks">
+        <li>
+            <input type="button" class="done" onclick="markDone(this.parentNode)" value="&#x2713;" />
+            <input type="button" class="remove" onclick="remove(this.parentNode)" value="&#x2715;" />
+            <input type="button" value="!" id="important" onclick="important(this.parentNode)" />
+
+        </li>
+    </ul>
+    <hr>
+
+    <div id="divabout">
+
+    </div>
+    <input type="button" value="About" onclick="doAbout()">
+    <input type="button" value="Close About" onclick="clearAbout()">
+
+
+</body>
+
+</html>
